@@ -8,10 +8,6 @@ LAST_ACTIVE= (
     ( "B", "No" ),
 )
 
-CHAT_TYPE= (
-    ( "A", "BUSINESS" ),
-    ( "B", "PERSONAL" ),
-)
 
 EVENT_TYPE= (
     ( "A", "MORNING MEETING"),
@@ -30,13 +26,15 @@ class User(models.Model):
         return ( f'{self.id}| {self.first_name}')
   
 class Conversation(models.Model):
-    chat_type = models.CharField(max_length=100,choices=CHAT_TYPE,
-    default=CHAT_TYPE[0][0])
-    created = models.TextField(max_length=100,choices=LAST_ACTIVE,
+    chat_type = models.CharField(max_length=100)
+    status = models.TextField(max_length=100,choices=LAST_ACTIVE,
     default=LAST_ACTIVE[0][0])
 
     def __str__(self):
         return ( f'{self.id}| {self.chat_type}')
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'conversation_id': self.id})
 
 class Event(models.Model):
     event_type = models.CharField(max_length=100,choices=EVENT_TYPE, 

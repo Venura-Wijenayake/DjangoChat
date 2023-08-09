@@ -12,3 +12,6 @@ def chats_index(request):
 
 def chats_detail(request):
    return render(request, "chats/detail.html")
+
+def conversations_index(request):
+   return render(request, "conversations/index.html")
