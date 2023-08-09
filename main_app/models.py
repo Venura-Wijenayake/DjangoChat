@@ -33,9 +33,7 @@ class Conversation(models.Model):
     def __str__(self):
         return ( f'{self.id}| {self.chat_type}')
     
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'conversation_id': self.id})
-
+  
 class Event(models.Model):
     event_type = models.CharField(max_length=100,choices=EVENT_TYPE, 
     default=EVENT_TYPE[0][0])
