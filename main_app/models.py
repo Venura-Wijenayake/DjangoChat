@@ -30,7 +30,7 @@ class Conversation(models.Model):
     status = models.TextField(max_length=100,choices=LAST_ACTIVE,
     default=LAST_ACTIVE[0][0])
     description = models.TextField(max_length=2500)
-
+    users = models.ManyToManyField(User)
     def __str__(self):
         return ( f'{self.id}| {self.chat_type}')
     

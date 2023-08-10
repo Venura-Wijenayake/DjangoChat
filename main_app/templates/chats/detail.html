@@ -2,3 +2,57 @@
 Add A picture
 add personal details\
 refer to the details file in the cat folder -->
+{% extends 'base.html' %}
+{% block content %}
+
+
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ conversation.name }}'s Toys</h3>
+    {% if conversation.users.count %}
+      {% for toy in conversation.users.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="first_name: {{ user.first_name }}">{{ user.first_name }}</span> {{ user.first_name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_user' conversation.id user.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No User </h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Users</h3>
+    {% if users.count %}
+      {% for user in users.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="first_name: {{ user.first_name }}">{{ user.first_name }}</span> {{ user.first_name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_user' conversation.id user.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{conversation.name}} Already Has All User Available</h5>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render #, redirect
+from django.shortcuts import render, redirect
 from .models import Conversation,User,Event,Message
 
 def home(request):
@@ -18,5 +18,18 @@ def conversations(request):
    return render(request, "conversations_index.html",{"conversations":conversations})
 
 def conversations_detail(request, conversation_id):
-  conversation = Conversation.objects.get(id=conversation_id)
-  return render(request, 'conversations_detail.html',{"conversation":conversation})
+   conversation = Conversation.objects.get(id=conversation_id)
+   id_list = conversation.users.all().values_list('id')
+   users_conversation_doesnt_have = User.objects.exclude(id__in=id_list)
+   return render(request, 'conversations_detail.html',{"conversation":conversation,
+   'users': users_conversation_doesnt_have})
+
+
+def assoc_user(request, conversation_id, user_id):
+  Conversation.objects.get(id=conversation_id).users.add(user_id)
+  return redirect('detail', conversation_id=conversation_id)
+
+def unassoc_user(request, conversation_id, user_id):
+  Conversation.objects.get(id=conversation_id).users.remove(user_id)
+  return redirect('detail', conversation_id=conversation_id)
+
