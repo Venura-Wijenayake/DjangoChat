@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -15,22 +16,14 @@ EVENT_TYPE= (
     ( "C", "EVENING MEETING"),
 )
 
-class User(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    last_active = models.TextField(max_length=100,choices=LAST_ACTIVE,
-    default=LAST_ACTIVE[0][0])
 
-    def __str__(self):
-        return ( f'{self.id}| {self.first_name}')
   
 class Conversation(models.Model):
     chat_type = models.CharField(max_length=100)
     status = models.TextField(max_length=100,choices=LAST_ACTIVE,
     default=LAST_ACTIVE[0][0])
     description = models.TextField(max_length=2500)
-    users = models.ManyToManyField(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return ( f'{self.id}| {self.chat_type}')
     
@@ -48,7 +41,7 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.get_meal_display()} on {self.date}"
     
-class Message(models.Model):
+class User(models.Model):
     content=models.CharField(max_length=100000)
     Sent_at=models.DateTimeField(auto_now_add=True)
     user_id= models.ForeignKey(User,on_delete=models.CASCADE)
