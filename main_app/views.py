@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Conversation,User,Event,Message
+from .models import Conversation,User,Event
 
 def home(request):
   return render(request, 'home.html')

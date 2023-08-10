@@ -41,14 +41,5 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.get_meal_display()} on {self.date}"
     
-class User(models.Model):
-    content=models.CharField(max_length=100000)
-    Sent_at=models.DateTimeField(auto_now_add=True)
-    user_id= models.ForeignKey(User,on_delete=models.CASCADE)
-#    chat_room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f'Message {self.id}| {self.content}'
     
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'message_id': self.id})
