@@ -4,27 +4,21 @@
 <h1>Chat Groups</h1>
 
 
-  {% comment %} <a href="{% url "conversations_index" converstion.id %}"> {% endcomment %}
-    <div class="card"> 
-        <p>Business</p>
-       
-      </div>
-      <div class="card"> 
-        <p>Personal</p>
-    </div>
-  </a>
-
+  
+{% for conversation in conversations %}
+  <div class="card"> 
+    <a href="{% url "conversationdetail" conversation.id %}">
+    <div class="card-content">
+      <span class="card-title">{{ conversation.chat_type}}</span>
+        
+      {% if conversation.status  %}
+        <p>status: yes</p>
+      {% else %}
+        <p>status: No</p>
+      {% endif %}
+    </a>
+  </div>
+{% endfor %}
 
 {% endblock %} 
 
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html> {% endcomment %}

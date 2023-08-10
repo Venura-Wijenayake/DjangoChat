@@ -14,14 +14,9 @@ def chats_detail(request):
    return render(request, "chats/detail.html")
 
 def conversations(request):
-   return render(request, "conversations_index.html")
+   conversations= Conversation.objects.all()
+   return render(request, "conversations_index.html",{"conversations":conversations})
 
-# def conversations_detail(request, conversation_id):
-#   builder = Builder.objects.get(id=builder_id)
-#   id_list = builder.contractors.all().values_list('id')
-#   contractors_builder_doesnt_have = Contractor.objects.exclude(id__in=id_list)
-#   propertydetails_form = PropertyDetailsForm()
-#   return render(request, 'builders/detail.html', { 
-#     'builder': builder ,"propertydetails_form" : propertydetails_form,
-#     'contractors': contractors_builder_doesnt_have                                             
-#     })
+def conversations_detail(request, conversation_id):
+  conversation = Conversation.objects.get(id=conversation_id)
+  return render(request, 'conversations_detail.html',{"conversation":conversation})
