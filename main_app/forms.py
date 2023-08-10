@@ -1,7 +1,8 @@
 from django.forms import ModelForm
-from .models import Conversation
+from .models import Feeding
 
-class Conversation(ModelForm):
+class FeedingForm(ModelForm):
   class Meta:
-    model = Conversation
-    fields = ['business', 'personal']
+    model = Feeding
+    fields = ['date', 'meal']
+
