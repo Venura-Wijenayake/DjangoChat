@@ -27,7 +27,18 @@ class User(models.Model):
     default=LAST_ACTIVE[0][0])
 
     def __str__(self):
-        return ( f'{self.id}| {self.first_name}')
+        return f'{self.first_name} {self.last_name} {self.email} {self.last_active}',
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'user_id': self.id})
+
+    # # user FK
+    # User = models.ForeignKey(
+    #     User, 
+    #     on_delete=models.CASCADE
+    # )
+
+   
   
 class Conversation(models.Model):
     chat_type = models.CharField(max_length=100,choices=CHAT_TYPE,
@@ -60,3 +71,5 @@ class Message(models.Model):
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'message_id': self.id})
+    
+    
