@@ -8,9 +8,19 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Cat, Toy, Photo
+from .models import Cat, Toy, Photo,Conversation
 from .forms import FeedingForm
 
+def conversations(request):
+   conversations= Conversation.objects.all()
+   return render(request, "conversations_index.html",{"conversations":conversations})
+
+class GroupDetail(DetailView):
+  model = Conversation
+
+def conversation_detail(request, conversation_id):
+  conversation = Conversation.objects.get(id=conversation_id)
+  return render(request, 'conversation_detail.html',{"conversation":conversation})
 # Create your views here.
 def home(request):
   return render(request, 'home.html')
@@ -62,7 +72,6 @@ class CatDelete(LoginRequiredMixin, DeleteView):
   model = Cat
   success_url = '/cats'
 
-@login_required
 def add_feeding(request, cat_id):
   # create a ModelForm instance using 
   # the data that was submitted in the form
@@ -84,9 +93,17 @@ class ToyList(LoginRequiredMixin, ListView):
 class ToyDetail(LoginRequiredMixin, DetailView):
   model = Toy
 
-class ToyCreate(LoginRequiredMixin, CreateView):
-  model = Toy
+class ChatGroupCreate(LoginRequiredMixin, CreateView):
+  model = Conversation
   fields = '__all__'
+
+class ConversationStatusUpdate(LoginRequiredMixin, UpdateView):
+  model = Conversation
+  fields = ['chat_type','status','description']
+
+class ConversationDelete(LoginRequiredMixin, DeleteView):
+  model = Conversation
+  success_url = '/conversations'
 
 class ToyUpdate(LoginRequiredMixin, UpdateView):
   model = Toy
