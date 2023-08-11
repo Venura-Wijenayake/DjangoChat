@@ -19,19 +19,17 @@ from django.contrib.auth.models import User
 #   def get_absolute_url(self):
 #     return reverse('toys_detail', kwargs={'pk': self.id})
   
-class Chat(models.Model):
-  heading = models.CharField(max_length=100)
+class Cat(models.Model):
+  name = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
-  created_at = models.DateTimeField(auto_now_add=True)
-  updated_at = models.DateTimeField(auto_now=True)
-  # user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
   def __str__(self):
     return f'{self.name} ({self.id})'
-  
+
   def get_absolute_url(self):
-    return reverse('detail', kwargs={'chat_id': self.id})
-  
+    return reverse('detail', kwargs={'cat_id': self.id})
+
   # def fed_for_today(self):
   #   return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
   
