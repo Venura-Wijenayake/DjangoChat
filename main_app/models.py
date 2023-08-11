@@ -4,17 +4,6 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 
-MEALS = (
-  ('B', 'Breakfast'),
-  ('L', 'Lunch'),
-  ('D', 'Dinner'),
-)
-
-STATUS= (
-    ( "A", "Yes" ),
-    ( "B", "No" ),
-)
-
 class Conversation(models.Model):
     chat_type = models.CharField(max_length=100)
     status = models.CharField(max_length=100)

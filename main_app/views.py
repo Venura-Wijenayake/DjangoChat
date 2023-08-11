@@ -6,11 +6,11 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
+from .forms import RegisterForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Cat, Toy, Photo,Conversation
-from .forms import FeedingForm
+from .models import Cat,Conversation
 from django.contrib.auth.models import User
 
 def conversations(request):
@@ -66,6 +66,11 @@ def unassoc_user(request, group_id, username):
   Conversation.objects.get(id=group_id).user.remove(user)
   return redirect('conversation_detail', group_id=group_id)
 
+class SignUpView(CreateView):
+    form_class = RegisterForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -86,3 +91,29 @@ def signup(request):
   form = RegisterForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
+@login_required
+def chats_index(request):
+  cats = Cat.objects.all()
+  return render(request, 'chats/index.html', {
+    'cats': cats
+  })
+
+@login_required
+def chats_detail(request, chat_id):
+  chat = Chat.objects.get(id=chat_id)
+  # First, create a list of the toy ids that the cat DOES have
+  id_list = chat.toys.all().values_list('id')
+  # Query for the toys that the cat doesn't have
+  # by using the exclude() method vs. the filter() method
+  toys_chat_doesnt_have = Toy.objects.exclude(id__in=id_list)
+  # instantiate FeedingForm to be rendered in detail.html
+  feeding_form = FeedingForm()
+  return render(request, 'chats/detail.html', {
+    'chat': chat, 'feeding_form': feeding_form
+  })
+
+@login_required
+def viewProfile(request):
+   user = request.user
+   return render(request, 'user/profile.html', {'user':user})
