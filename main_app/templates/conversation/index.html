@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Chat Group List</h1>
+{% for conversation in conversations %}
+  <a href="{% url 'detail' conversation.id %}">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ conversation.chat_type }}</span>
+        <p>Status: {{ conversation.status }}</p>
+        <p>Description: {{ conversation.description|linebreaks }}</p>
+      </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}
