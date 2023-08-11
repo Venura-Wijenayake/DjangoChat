@@ -1,11 +1,12 @@
 body {
   display: flex;
+  background: linear-gradient(132deg, rgb(204, 231, 237) 0%, rgb(222, 220, 255) 50%, rgb(129, 154, 160) 100%);
   min-height: 100vh;
   flex-direction: column;
 }
 
 nav{
-    background-color: #0C8C59 !important;
+    background-color: #d1a27b !important;
     font-size: 14px;
     font-weight: bold;
 }
@@ -15,7 +16,7 @@ main {
 }
 
 footer.page-footer {
-  background-color: #0C8C59 !important;
+  background-color: #d1a27b !important;
   padding-top: 0;
   text-align: right;
 }
