@@ -1,18 +1,20 @@
 import os
 import uuid
 import boto3
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import ListView, DetailView
+# from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Chat
+from django import forms
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.models import User
-from .forms import RegisterForm
+from .forms import RegisterForm, UserProfileForm
 
 
 
@@ -53,21 +55,17 @@ class ChatCreate(LoginRequiredMixin, CreateView):
   model = Chat
   fields = ['name', 'breed', 'description', 'age']
 
-  def form_valid(self, form):
-    # self.request.user is the logged in user
-    form.instance.user = self.request.user
-    # Let the CreateView's form_valid method
-    # do its regular work (saving the object & redirecting)
-    return super().form_valid(form)
+#   def form_valid(self, form):
+#     form.instance.user = self.request.user
+#     return super().form_valid(form)
 
+# class ChatUpdate(LoginRequiredMixin, UpdateView):
+#   model = Chat
+#   fields = ['breed', 'description', 'age']
 
-class ChatUpdate(LoginRequiredMixin, UpdateView):
-  model = Chat
-  fields = ['breed', 'description', 'age']
-
-class ChatDelete(LoginRequiredMixin, DeleteView):
-  model = Chat
-  success_url = '/chats'
+# class ChatDelete(LoginRequiredMixin, DeleteView):
+#   model = Chat
+#   success_url = '/chats'
 
 # @login_required
 # def add_feeding(request, chat_id):
