@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Conversation Details</h1>
+
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ conversation.chat_type }}</span>
+        <p>Status: {{ conversation.status }}</p>
+        <p>Description: {{ conversation.description|linebreaks }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'conversations_status_update' conversation.id %}">Edit</a>
+        <a href="{% url 'conversation_delete' conversation.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ conversation.chat_type }}'s Members</h3>
+    {% if conversationUsers.count %}
+      {% for user in conversationUsers %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              <span>{{user.username}}</span>
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_user' conversation.id user.username %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Members 😿</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Non-Existing Members</h3>
+    {% if users.count %}
+      {% for user in users.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              <span>{{ user.username }}</span>
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_user' conversation.id user.username %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{conversation.chat_type}} All users are already part of the group!</h5>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

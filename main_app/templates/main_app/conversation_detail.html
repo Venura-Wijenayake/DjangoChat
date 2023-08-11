@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Group Detail</h1>
+
+<div class="row">
+  <div class="col s6 col-offset-3">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ conversation.chat_type }}</span>
+        <p>Status: {{ conversation.status }}</p>
+        <p>Description: {{ conversation.description }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'conversations_status_update' conversation.id %}">Edit</a>
+        <a href="{% url 'conversation_delete' conversation.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

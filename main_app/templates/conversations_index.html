@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Chat Groups</h1>
+{% for conversation in conversations %}
+  <div class="card"> 
+    <a href="{% url "conversation_detail" conversation.id %}">
+    <div class="card-content">
+      <span class="card-title">{{conversation.chat_type}}</span>
+      {% if conversation.status == 'A'%}
+        <p>status: Yes</p>
+      {% else %}
+        <p>status: No</p>
+      {% endif %}
+      <div class="card-action">
+        <a href="{% url 'conversations_status_update' conversation.id %}">Edit</a>
+        <a href="{% url 'conversation_delete' conversation.id %}">Delete</a>
+      </div>
+    </a>
+  </div>
+{% endfor %}
+{% endblock %} 
