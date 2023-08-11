@@ -9,7 +9,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Chat
+from .models import Cat
 from django import forms
 from django.views import generic
 from django.contrib.auth.models import User
@@ -41,9 +41,9 @@ def about(request):
 
 @login_required
 def chats_index(request):
-  # We pass data to a template very much like we did in Express!
+  cats = Cat.objects.all()
   return render(request, 'chats/index.html', {
-    'chats': chats
+    'cats': cats
   })
 
 @login_required
@@ -65,9 +65,6 @@ def chats_detail(request, chat_id):
     'chat': chat, 'feeding_form': feeding_form
   })
 
-class ChatCreate(LoginRequiredMixin, CreateView):
-  model = Chat
-  fields = ['name', 'breed', 'description', 'age']
 
 #TAVYS FORUM CODE
 def addInForum(request):
