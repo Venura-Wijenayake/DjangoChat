@@ -24,17 +24,16 @@ class Chat(models.Model):
   description = models.TextField(max_length=250)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
-  # add user_id FK column
   # user = models.ForeignKey(User, on_delete=models.CASCADE)
-  # Changing this instance method
-  # does not impact the database, therefore
-  # no makemigrations is necessary
+
   def __str__(self):
     return f'{self.name} ({self.id})'
+  
   def get_absolute_url(self):
     return reverse('detail', kwargs={'chat_id': self.id})
-  def fed_for_today(self):
-    return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
+  
+  # def fed_for_today(self):
+  #   return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
   
 # class Feeding(models.Model):
 #   date = models.DateField('Feeding Date')
