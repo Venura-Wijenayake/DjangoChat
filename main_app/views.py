@@ -33,7 +33,7 @@ def about(request):
 def group_detail(request, group_id):
   conversation = Conversation.objects.get(id=group_id)
   name_list = conversation.user.all().values_list('username')
-  users_part_of_group = conversation.user.all()
+  users_part_of_group = conversation.user.all().values()
   users_doesnt_belong_to_conversation = User.objects.exclude(username__in=name_list)
   return render(request, 'conversation/detail.html', {
     'conversation': conversation,
