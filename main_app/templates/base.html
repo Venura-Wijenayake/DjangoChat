@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,47 +16,10 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
-=======
-<head>
-    <meta charset="UTF-8">``
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat Group App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
->>>>>>> origin/priyangadev
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
   <body>
     <header class="navbar-fixed">
-<<<<<<< HEAD
-      <nav>
-        <div class="nav-wrapper">
-          <ul>
-            <li>
-              <a href="{% url 'home' %}" class="left brand-logo"
-                >&nbsp;&nbsp;DjangoChat</a
-              >
-            </li>
-          </ul>
-          <ul class="right">
-            <li><a href="{% url 'about' %}">About</a></li>
-            {% if user.is_authenticated %} {% comment %}
-            <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
-            {% endcomment %} {% comment %}
-            <li><a href="{% url 'toys_index' %}">View All Toys</a></li>
-            {% endcomment %}
-            <li><a href="{% url 'index' %}">View Chat Rooms</a></li>
-            <li><a href="{% url 'view_profile' %}">Profile</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-            {% else %}
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            <li><a href="{% url 'login' %}">Log In</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-=======
         <nav>
             <div class="nav-wrapper">
                 <ul>
@@ -76,7 +38,6 @@
                 </ul>
             </div>
         </nav>
->>>>>>> origin/priyangadev
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
     <footer class="page-footer">
