@@ -1,4 +1,5 @@
-#from django.forms import ModelForm
+from django.forms import ModelForm
+from .models import *
 #from .models import Feeding
 
 #class FeedingForm(ModelForm):
@@ -27,3 +28,15 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password']
+
+
+#TAVY FORUM CODE 
+class CreateInForum(ModelForm):
+    class Meta:
+        model= forum
+        fields = "__all__"
+ 
+class CreateInDiscussion(ModelForm):
+    class Meta:
+        model= Discussion
+        fields = "__all__"

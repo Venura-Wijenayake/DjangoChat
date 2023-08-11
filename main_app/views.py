@@ -14,6 +14,9 @@ from django import forms
 from django.views import generic
 from django.contrib.auth.models import User
 from .forms import RegisterForm, UserProfileForm
+from .models import * 
+from .forms import * 
+
 
 chats = [
   {'name': 'Lolo', 'breed': 'tabby', 'description': 'furry little demon', 'age': 3},
@@ -22,7 +25,16 @@ chats = [
 
 # Create your views here.
 def home(request):
-  return render(request, 'home.html')
+    forums=forum.objects.all()
+    count=forums.count()
+    discussions=[]
+    for i in forums:
+        discussions.append(i.discussion_set.all())
+ 
+    context={'forums':forums,
+              'count':count,
+              'discussions':discussions}
+    return render(request, 'home.html', context)
 
 def about(request):
   return render(request, 'about.html')
@@ -56,6 +68,27 @@ def chats_detail(request, chat_id):
 class ChatCreate(LoginRequiredMixin, CreateView):
   model = Chat
   fields = ['name', 'breed', 'description', 'age']
+
+#TAVYS FORUM CODE
+def addInForum(request):
+    form = CreateInForum()
+    if request.method == 'POST':
+        form = CreateInForum(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/chats')
+    context ={'form':form}
+    return render(request,'addInForum.html',context)
+ 
+def addInDiscussion(request):
+    form = CreateInDiscussion()
+    if request.method == 'POST':
+        form = CreateInDiscussion(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context ={'form':form}
+    return render(request,'addInDiscussion.html',context)  
 
 #   def form_valid(self, form):
 #     form.instance.user = self.request.user
