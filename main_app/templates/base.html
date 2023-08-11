@@ -30,6 +30,7 @@
                   {% if user.is_authenticated %}
                     <li><a href="{% url 'chatgroup_create' %}">Add a Chat Group</a></li>
                     <li><a href="{% url 'conversations' %}">View All Chat Groups</a></li>
+                    <li><a href="{% url 'view_profile' %}">Profile</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                   {% else %}
                     <li><a href="{% url 'signup' %}">Sign Up</a></li>
@@ -42,7 +43,7 @@
     <main class="container">{% block content %} {% endblock %}</main>
     <footer class="page-footer">
       <div class="right">
-        All Rights Reserved, &copy; 2022 Chat Collector &nbsp;
+        All Rights Reserved, &copy; 2023 DjangoChat &nbsp;
       </div>
     </footer>
   </body>
