@@ -11,12 +11,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Chat
 from django import forms
-from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.models import User
 from .forms import RegisterForm, UserProfileForm
 
-
+chats = [
+  {'name': 'Lolo', 'breed': 'tabby', 'description': 'furry little demon', 'age': 3},
+  {'name': 'Sachi', 'breed': 'calico', 'description': 'gentle and loving', 'age': 2},
+]
 
 # Create your views here.
 def home(request):
@@ -27,10 +29,10 @@ def about(request):
 
 @login_required
 def chats_index(request):
-  # chats = Chat.objects.filter(heading=request.heading)
-  # Another query
-  # cats = request.user.cat_set.all()
-  return render(request, 'chats/index.html')
+  # We pass data to a template very much like we did in Express!
+  return render(request, 'chats/index.html', {
+    'chats': chats
+  })
 
 @login_required
 def viewProfile(request):
